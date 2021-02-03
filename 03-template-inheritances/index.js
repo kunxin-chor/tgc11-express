@@ -18,6 +18,10 @@ app.get('/about-us', (req,res)=>{
     res.render('about-us.hbs');
 })
 
+app.use('/contact-us', (req,res)=>{
+    res.render('contact-us.hbs')
+})
+
 app.listen(3000, ()=>{
     console.log("Server has started");
 })
