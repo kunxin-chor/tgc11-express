@@ -9,8 +9,15 @@ let app = express();
 app.set('view engine', 'hbs');
 
 app.get('/', (req, res)=>{
-   
+   res.render('index.hbs')
     
+})
+
+app.get('/greeting/:name', (req,res)=>{
+    let fullname = req.params.name;
+    res.render('welcome.hbs', {
+        'fullname': fullname
+    })
 })
 
 app.listen(3000, ()=>{

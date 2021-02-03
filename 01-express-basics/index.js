@@ -31,10 +31,22 @@ app.get('/greetings/:fullname', (req,res)=>{
 
 // Q1: Write a route that maps to the URL /squared/:x
 // and send back using the response the number squared.
+app.get('/squared/:x', (req,res)=>{
+    let number = parseInt(req.params.x);
+    let squared = number ** 2;
+    res.send("The number squared is " + squared);
+})
 
 // Q2: Write a route that can have two number parameters
-// with the being sum. Send back using the response the
+// with url being '/sum'. Send back using the response the
 // sum of the two number parameters.
+
+app.get('/sum/:x/:y', (req,res)=>{
+    let x = parseInt(req.params.x);
+    let y = parseInt(req.params.y);
+    let total = x + y;
+    res.send(total.toString());
+})
 
 // starts at the server at port 3000
 app.listen(3000, () => {
