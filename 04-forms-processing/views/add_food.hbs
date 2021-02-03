@@ -1,0 +1,76 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+<form method="POST" class="mt-3">
+    <div>
+        <label class="form-label">Food Name:</label>
+        <input class="form-control" type="text" id="food-name" name="food-name" />
+    </div>
+    <div>
+        <label class="form-label">Calories</label>
+        <input class="form-control" type="text" id="calories" name="calories" />
+    </div>
+
+    <div>
+        <label class="form-label">Meal</label>
+        <div class="form-check form-check-inline">
+            <div class="ml-3">
+                <input type="radio" name="meal" class="meal" value="breakfast" />
+                <label class="form-check-label">Breakfast</label>
+            </div>
+            <div class="ml-3">
+                <input type="radio" name="meal" class="meal" value="lunch" />
+                <label class="form-check-label">Lunch</label>
+            </div>
+            <div class="ml-3">
+                <input type="radio" name="meal" class="meal" value="dinner" />
+                <label class="form-check-label">Dinner</label>
+            </div>
+        </div>
+    </div>
+
+    
+    <div>
+        <label class="form-label">Meal Tags</label>
+        <div class="form-check form-check-inline">
+            <div class="ml-3">
+                <input type="checkbox" name="tags" class="tags" value="organic" />
+                <label class="form-check-label">Organic</label>
+            </div>
+            <div class="ml-3">
+                <input type="checkbox" name="tags" class="tags" value="fried" />
+                <label class="form-check-label">Fried</label>
+            </div>
+            <div class="ml-3">
+                <input type="checkbox" name="tags" class="tags" value="vegan" />
+                <label class="form-check-label">Vegan</label>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <label class="form-label">Cuisine</label>
+        <select class="form-control" name="cuisine" id="cuisine">
+            <option value="chinese">Chinese</option>
+            <option value="western">Western</option>
+            <option value="japanese">Japanese</option>
+        </select>
+    </div>
+
+        <div>
+        <label class="form-label">Mood</label>
+        <select class="form-control" name="mood" id="mood" multiple>
+            <option value="despair">Despair</option>
+            <option value="determined">Determined</option>
+            <option value="enjoy">Enjoy</option>
+        </select>
+    </div>
+
+
+    <input type="submit" />
+
+</form>
+
+{{/block}}
+
+{{/extends}}
