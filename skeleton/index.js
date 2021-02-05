@@ -18,24 +18,9 @@ app.use(
   })
 );
 
-const baseURL = "https://ckx-movies-api.herokuapp.com";
+const baseURL = "https://petstore.swagger.io/v2";
 // SETUP END
 
-app.get('/movies', async (req,res)=>{
-    let response = await axios.get(baseURL + '/movies');
-    res.render('show_movies.hbs',{
-        'all_movies': response.data
-    })
-})
-
-app.get('/movies/create', (req,res)=>{
-    res.render('add_movie.hbs');
-})
-
-app.post('/movies/create', (req,res)=>{
-    res.send("data recieved")
-    console.log(req.body);
-})
 
 // START SERVER
 app.listen(3000, () => {
