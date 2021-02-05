@@ -32,9 +32,17 @@ app.get('/movies/create', (req,res)=>{
     res.render('add_movie.hbs');
 })
 
-app.post('/movies/create', (req,res)=>{
-    res.send("data recieved")
-    console.log(req.body);
+app.post('/movies/create', async (req,res)=>{
+    let title = req.body.title;
+    let plot = req.body.plot;
+    // await axios.post(baseURL + '/movies/create', {
+    //     'title': title,
+    //     'plot' : plot
+    // })
+    await axios.post(baseURL + '/movie/create', {
+      title, plot
+    });
+    res.redirect('/movies')
 })
 
 // START SERVER
