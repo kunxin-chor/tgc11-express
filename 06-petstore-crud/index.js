@@ -59,8 +59,58 @@ app.post("/pets/create", async (req, res) => {
     status: "available"
   };
 
-  await axios.post(baseURL + '/pet', newPet);
-  res.redirect("/pets")
+  await axios.post(baseURL + "/pet", newPet);
+  res.redirect("/pets");
+});
+
+app.get("/pet/delete/:petid", async (req, res) => {
+  let petId = req.params.petid;
+  // let response = await axios.get(baseURL + '/pet/' + petId);
+  let response = await axios.get(`${baseURL}/pet/${petId}`);
+  let pet = response.data;
+  res.render("confirm_to_delete", {
+    petToDelete: pet
+  });
+});
+
+app.post("/pet/delete/:petid", async (req, res) => {
+  let petId = req.params.petid;
+  let response = await axios.delete(baseURL + "/pet/" + petId);
+  res.redirect("/pets");
+});
+
+app.get("/pet/edit/:petid", async (req, res) => {
+  let petId = req.params.petid;
+  let response = await axios.get(baseURL + "/pet/" + petId);
+  let pet = response.data;
+  res.render("edit_pet.hbs", {
+    petToEdit: pet
+  });
+});
+
+app.post("/pet/edit/:petid", async (req, res) => {
+  let petid = req.params.petid;
+  let name = req.body.petName;
+  let category = req.body.petCategory;
+  let updatedPet = {
+    id: petid,
+    category: {
+      id: Math.floor(Math.random() * 1000000),
+      'name': category
+    },
+    'name': name,
+    photoUrls: ["string"],
+    tags: [
+      {
+        id: 0,
+        name: "string"
+      }
+    ],
+    status: "available"
+  };
+  let response = await axios.put(baseURL + '/pet', updatedPet);
+  console.log(response);
+  res.redirect('/pets')
 });
 
 // START SERVER

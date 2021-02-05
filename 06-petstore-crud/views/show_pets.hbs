@@ -1,6 +1,10 @@
 {{#extends 'base'}}
 
 {{#block 'content'}}
+<h1>All Pets</h1>
+
+<a href="/pets/create" class="btn btn-primary mb-3">Add New</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -8,6 +12,7 @@
             <th>Pet's Name</th>
             <th>Category</th>
             <th>Status</th>
+            <th></th>
         </tr>
     </thead>
     {{#each all_pets}}
@@ -16,6 +21,11 @@
         <td>{{this.name}}</td>
         <td>{{this.category.name}}</td>
         <td>{{this.status}}</td>
+        <td>
+                        <a href="/pet/edit/{{this.id}}" class="btn btn-success btn-sm">Edit</a>
+            <a href="/pet/delete/{{this.id}}" class="btn btn-danger btn-sm">Delete</a>
+
+        </td>
     </tr>
     {{/each}}
 
