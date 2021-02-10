@@ -40,6 +40,10 @@ async function main() {
 
         res.send('Ingredient has been added');
     })
+
+    app.get('/recipes/create', async(req,res)=>{
+        let allIngredients = await db.collection
+    })
 }   
 
 main();
