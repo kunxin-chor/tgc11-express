@@ -28,7 +28,18 @@ async function main() {
 
     // MongoDB is connected and alive
 
-    app.get('/')
+    app.get('/ingredients/create', (req,res)=>{
+        res.render('ingredients/create')
+    })
+
+    // Create
+    app.post('/ingredients/create', async (req,res)=>{
+        await db.collection('recipes').insertOne({
+            'name': req.body.ingredientName
+        })
+
+        res.send('Ingredient has been added');
+    })
 }   
 
 main();
