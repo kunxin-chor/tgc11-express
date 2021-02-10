@@ -1,0 +1,67 @@
+{{#extends 'base'}}
+{{#block 'content'}}
+<form method="POST">
+    <h4>Basic Information</h4>
+    <div>
+        <label class="form-label">
+            Title:
+        </label>
+        <input type="text" name="title" class="form-control">
+    </div>
+    <div>
+        <label class="form-label">
+            Difficulty
+        </label>
+        {{#each ratings}}
+        <div class="form-check form-check-inline">
+            <input type="radio" value="{{this}}" class="form-check-input"/>
+            <label class="form-check-label">{{this}}</label>
+        </div>
+        {{/each}}
+    </div>
+    <div>
+     
+        <label class="form-label">
+            Ingredients
+        </label>
+        <div>
+            <select multiple name="ingredients" class="form-control">
+                {{#each allIngredients}}
+                <option>{{this.name}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <h4>Steps</h4>
+        <div id="all-steps">
+            <div>
+                <label class="form-label">Step 1</label>
+                <textarea class="form-control" name="steps"></textarea>
+            </div>
+        </div>
+        <a href="#" id="add-step-btn" class="btn btn-success btn-sm mt-3">Add New Step</a>
+    </div>
+
+    <input type="submit" value="Add new recipe" class="btn btn-primary mt-3"/>
+
+
+</form>
+{{/block}}
+
+{{#block 'js'}}
+<script>
+    document.querySelector('#add-step-btn').addEventListener('click', ()=>{
+       
+        let currentStep = document.querySelectorAll('#all-steps textarea').length;
+        let divElement = document.createElement('div');
+        let template = `<div>
+            <label class="form-label">Step ${currentStep+1}</label>
+            <textarea class="form-control" name="steps"></textarea>
+        </div>`;
+        divElement.innerHTML += template;
+        document.querySelector('#all-steps').appendChild(divElement);
+    })
+</script>
+
+{{/block}}
+{{/extends}}
