@@ -4,6 +4,7 @@ const wax = require("wax-on");
 require("dotenv").config();
 const mongoUrl = process.env.MONGO_URL;
 const MongoUtil = require("./MongoUtil");
+const ObjectId = require('mongodb').ObjectId;
 
 // create an instance of express app
 let app = express();
@@ -56,12 +57,46 @@ async function main() {
   });
 
   app.post('/recipes/create', async (req, res)=>{
-      res.send(req.body);
+      let ingredients = req.body.ingredients || [];
+      if (!Array.isArray(ingredients)) {
+          ingredients = [ingredients];
+      }
+
+       let steps = req.body.ingredients || [];
+       if (!Array.isArray(steps)) {
+           steps = [steps];
+       }
+
+      await db.collection('recipes').insertOne({
+          ...req.body,
+          ingredients,
+          steps
+      })
+      res.send("New recipe has been added!")
+  })
+
+  app.get('/recipes/:recipe_id/comments/create', (req,res)=>{
+      res.render('recipes/add_comments')
+  })
+
+  app.post('/recipes/:recipe_id/comments/create', async (req,res)=>{
+      await db.collection('recipes').updateOne({
+          '_id': ObjectId(req.params.recipe_id)
+      }, {
+          '$push':{
+              'comments': {
+                  'date_posted': new Date(),
+                  'comments': req.body.comments
+              }
+          }
+      });
+
+      res.send("comments added!")
   })
 }
 
 main();
 
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log("Server has started");
 });
