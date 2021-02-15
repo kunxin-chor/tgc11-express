@@ -155,7 +155,6 @@ async function main() {
   app.get(
     "/ingredients/:ingredient_id/comments/:comment_id/delete",
     async (req, res) => {
-        console.log(req.params);
       await db.collection("ingredients").updateOne(
         {
           _id: ObjectId(req.params.ingredient_id)
@@ -166,7 +165,8 @@ async function main() {
           }
         }
       );
-      res.send("comment has been deleted");
+    //   res.send("comment has been deleted");
+    res.redirect(`/ingredients/${req.params.ingredient_id}/comments`)
     }
   );
 }
