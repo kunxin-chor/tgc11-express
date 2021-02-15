@@ -23,6 +23,7 @@ app.get("/api/greetings", (req, res) => {
   // it into JSON for you!
   res.send({
     message: "Hello world"
+  });
 });
 
 app.post("/api/sayhello", (req, res) => {
@@ -35,15 +36,13 @@ app.post("/api/sayhello", (req, res) => {
   // for registration
   // we focus on the end results of a registration
   // http://www.myapi.com/api/query?searchTerms=IBM&apiKey=1234567
-  app.get('api/query',(req,res)=>{
-      let searchTerms = req.query.searchTerms;
-      let apiKey = req.query.apiKey
-      // do my search in Mongo
-      // return as JSON
-  })
-
+  app.get("api/query", (req, res) => {
+    let searchTerms = req.query.searchTerms;
+    let apiKey = req.query.apiKey;
+    // do my search in Mongo
+    // return as JSON
+  });
 });
-
 
 // START SERVER
 app.listen(3000, () => {
