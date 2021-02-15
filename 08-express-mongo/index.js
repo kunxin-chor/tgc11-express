@@ -136,7 +136,8 @@ async function main() {
           comments: {
             _id: ObjectId(), // ask Mongo to generate an ID for us
             email: email,
-            comments: comments
+            comments: comments,
+            approved: true
           }
         }
       }
@@ -208,6 +209,41 @@ async function main() {
       });
 
       res.redirect(`/ingredients/${req.params.ingredient_id}/comments`);
+  })
+
+  app.get('/comments/censor', async (req,res)=>{
+    let results = await db.collection('ingredients').updateMany({
+        'comments': {
+            '$elemMatch': {
+                'approved': false
+            }
+        }
+    }, {
+        '$set':{
+            'comments.$[c].comments' : '<really really censored>'
+        }
+    },{
+        'arrayFilters':[
+            {
+                'c.approved': false
+            }
+        ]
+    })
+    res.send(results);
+    // let comments = await db.collection('ingredients').find({
+    //     'comments': {
+    //         '$elemMatch': {
+    //             'approved': false
+    //         }
+    //     }
+    // }).project({
+    //     'comments': {
+    //         '$elemMatch': {
+    //             'approved': false
+    //         }
+    //     }
+    // }).toArray();
+    // res.send(comments);
   })
 
 }
