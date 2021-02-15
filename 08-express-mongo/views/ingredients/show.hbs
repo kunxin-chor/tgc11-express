@@ -1,0 +1,17 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+<h2>{{ingredient.name}}</h2>
+
+{{#each ingredient.comments}}
+<div class="media mt-3">
+   <div class="media-body">
+    <h5 class="mt-0">{{this.email}}</h5>
+    {{this.comments}}  
+  </div>
+</div>
+{{/each}}
+
+{{/block}}
+
+{{/extends}}

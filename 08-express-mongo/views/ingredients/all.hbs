@@ -2,7 +2,13 @@
 {{#block 'content'}}
 <ul>
     {{#each everything}}
-        <li>{{this.name}} ({{this._id}})</li>
+        <li>
+            {{this.name}} ({{this._id}})
+            <a href="/ingredients/{{this._id}}/update" class="btn btn-primary btn-sm">Edit</a>
+            <a href="/ingredients/{{this._id}}/delete" class="btn btn-danger btn-sm">Delete</a>
+            <a href="/ingredients/{{this._id}}/comments/create" class="btn btn-primary btn-sm">Add comment</a>
+            <a href="/ingredients/{{this._id}}/comments" class="btn btn-primary btn-sm">Comments</a>
+        </li>
     {{/each}}
 </ul>
 

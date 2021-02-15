@@ -1,0 +1,11 @@
+{
+    "_id":ObjectId("xxx-yyy-zzz"),
+    "name":"chicken breast",
+    "comments":[
+        {
+            "_id":ObjectId("123-456"),
+            "email":"a@b.com",
+            "text":"To seal in the mositure of the chicken breast, marinate it with oil"
+        }
+    ]
+}
