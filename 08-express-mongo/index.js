@@ -212,24 +212,56 @@ async function main() {
   })
 
   app.get('/comments/censor', async (req,res)=>{
-    let results = await db.collection('ingredients').updateMany({
+
+    // for SELECTING documents
+    let criteria = {
         'comments': {
             '$elemMatch': {
-                'approved': false
+                'approved':false
             }
         }
-    }, {
-        '$set':{
-            'comments.$[c].comments' : '<really really censored>'
+    }
+
+    // WHAT TO CHANGE
+    let changes = {
+        '$set': {
+            'comments.$[c].comments':'<removed for safety>'
         }
-    },{
-        'arrayFilters':[
+    }
+
+    // ARRAY FILER
+    let options = {
+        'arrayFilters': [
             {
                 'c.approved': false
             }
         ]
-    })
-    res.send(results);
+    }
+
+    let results = await db.collection('ingredients').updateMany(
+        criteria, changes, options
+    );
+
+     res.send(results);    
+
+    // let results = await db.collection('ingredients').updateMany({
+    //     'comments': {
+    //         '$elemMatch': {
+    //             'approved': false
+    //         }
+    //     }
+    // }, {
+    //     '$set':{
+    //         'comments.$[c].comments' : '<really really censored>'
+    //     }
+    // },{
+    //     'arrayFilters':[
+    //         {
+    //             'c.approved': false
+    //         }
+    //     ]
+    // })
+   
     // let comments = await db.collection('ingredients').find({
     //     'comments': {
     //         '$elemMatch': {
