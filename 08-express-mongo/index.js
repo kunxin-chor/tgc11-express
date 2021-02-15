@@ -160,15 +160,56 @@ async function main() {
           _id: ObjectId(req.params.ingredient_id)
         },
         {
-          '$pull': {
-            'comments': {'_id':ObjectId(req.params.comment_id)}
+          $pull: {
+            comments: { _id: ObjectId(req.params.comment_id) }
           }
         }
       );
-    //   res.send("comment has been deleted");
-    res.redirect(`/ingredients/${req.params.ingredient_id}/comments`)
+      //   res.send("comment has been deleted");
+      res.redirect(`/ingredients/${req.params.ingredient_id}/comments`);
     }
   );
+
+  app.get(
+    "/ingredients/:ingredient_id/comments/:comment_id/update",
+    async (req, res) => {
+      //   let ingredient = await getIngredientById(req.params.ingredient_id);
+      // write a query that only projects the comment that we want
+      let document = await db.collection("ingredients").find(
+        {
+          _id: ObjectId(req.params.ingredient_id),
+        
+        }
+      ).project({
+          'comments': {
+              '$elemMatch': {
+                  '_id': ObjectId(req.params.comment_id)
+              }
+          }
+      }).toArray();
+      res.render('ingredients/update_comments', {
+          'comment': document[0].comments[0]
+      })
+    // res.send(document);
+    }
+  );
+
+  app.post("/ingredients/:ingredient_id/comments/:comment_id/update", async (req,res)=>{
+      let email = req.body.email;
+      let comments = req.body.comments;
+      await db.collection('ingredients').updateOne({
+          '_id': ObjectId(req.params.ingredient_id),
+          'comments._id':  ObjectId(req.params.comment_id)
+      }, {
+          '$set': {
+              'comments.$.email': email,
+              'comments.$.comments': comments
+          }
+      });
+
+      res.redirect(`/ingredients/${req.params.ingredient_id}/comments`);
+  })
+
 }
 
 main();

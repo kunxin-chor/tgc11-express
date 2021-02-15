@@ -1,0 +1,20 @@
+{{#extends 'base'}}
+
+{{#block 'content'}}
+<form method="POST">
+    <div>
+        <label class="form-label">Email:</label>
+        <input type="text" class="form-control" name="email" value="{{comment.email}}" />
+    </div>
+    <div>
+        <label class="form-label">Comments</label>
+        <textarea class="form-control" name="comments">{{comment.comments}}</textarea>
+    </div>
+
+    <input type="submit" value="Update" class="btn btn-primary" />
+
+</form>
+
+{{/block}}
+
+{{/extends}}
