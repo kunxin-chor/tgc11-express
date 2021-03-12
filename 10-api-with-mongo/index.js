@@ -28,9 +28,24 @@ async function main() {
   // after this point, the database is available
 
   app.get("/free_food_sightings", async (req, res) => {
+
+    let criteria = {};
+
+    if (req.query.description) {
+        criteria['description'] = {$regex: req.query.description, $options:"i"}
+    }
+
+    if (req.query.food) {
+        criteria['food'] = {
+            '$in': req.query.food
+        }
+    }
+
+    console.log(criteria);
+
     let results = await db
       .collection("free_food_sightings")
-      .find({})
+      .find(criteria)
       .toArray();
 
     res.status(200);
